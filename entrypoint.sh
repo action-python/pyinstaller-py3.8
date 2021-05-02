@@ -19,6 +19,8 @@ WORKDIR=${SRCDIR:-.}
 
 SPEC_FILE=${4:-*.spec}
 
+TYPE=amd64
+
 /root/.pyenv/shims/python -m pip install --upgrade pip wheel setuptools
 
 #
@@ -45,9 +47,9 @@ if [ -f requirements.txt ]; then
     /root/.pyenv/shims/pip install -r requirements.txt
 fi # [ -f requirements.txt ]
 
-/root/.pyenv/shims/pyinstaller --clean -y --dist ./dist/linux/amd64 --workpath /tmp $SPEC_FILE
+/root/.pyenv/shims/pyinstaller --clean -y --dist ./dist/linux/$TYPE --workpath /tmp $SPEC_FILE
 
-chown -R --reference=. ./dist/linux/amd64
+chown -R --reference=. ./dist/linux/$TYPE
 
-ls ./dist/linux/amd64 | echo "::set-output name=location::$WORKDIR/dist/linux/amd64/$(< /dev/stdin)"
-ls ./dist/linux/amd64 | echo "::set-output name=filename::$(< /dev/stdin)"
+ls ./dist/linux/$TYPE | echo "::set-output name=location::$WORKDIR/dist/linux/$TYPE/$(< /dev/stdin)"
+ls ./dist/linux/$TYPE | echo "::set-output name=filename::$(< /dev/stdin)"
