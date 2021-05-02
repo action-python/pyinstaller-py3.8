@@ -48,3 +48,5 @@ fi # [ -f requirements.txt ]
 /root/.pyenv/shims/pyinstaller --clean -y --dist ./dist/linux/amd64 --workpath /tmp $SPEC_FILE
 
 chown -R --reference=. ./dist/linux/amd64
+
+ls ./dist/linux/amd64 | echo "::set-output name=location::$(< /dev/stdin)"

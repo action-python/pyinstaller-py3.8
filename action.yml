@@ -1,5 +1,5 @@
 name: "PyInstaller Linux AMD64"
-description: "Customisable GitHub Action to package your python code with PyInstaller for Linux AMD64"
+description: "GitHub Action package, Your python code to Binary for Linux AMD64 Architecture"
 branding:
   icon: "box"
   color: "blue"
@@ -21,8 +21,8 @@ inputs:
     required: False
     default: ""
 outputs:
-  output:
-    description: "The output of PyInstaller"
+  location:
+    description: 'Binary file location.'
 
 runs:
   using: "docker"
