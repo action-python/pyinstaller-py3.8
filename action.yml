@@ -25,6 +25,8 @@ outputs:
     description: 'Binary file location.'
   filename:
     description: 'Binary file name.'
+  content_type:
+    description: 'File content type.'
 
 runs:
   using: "docker"
