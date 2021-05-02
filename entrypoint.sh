@@ -51,6 +51,8 @@ fi # [ -f requirements.txt ]
 
 chown -R --reference=. ./dist/linux/$TYPE
 
+apt-get install -y file
+
 ls ./dist/linux/$TYPE | echo "::set-output name=location::$WORKDIR/dist/linux/$TYPE/$(< /dev/stdin)"
 ls ./dist/linux/$TYPE | echo "::set-output name=filename::$(< /dev/stdin)"
 ct=$(ls ./dist/linux/$TYPE | file --mime-type ./dist/linux/$TYPE/$(< /dev/stdin) | awk '//{ print $2 }')
