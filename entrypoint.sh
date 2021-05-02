@@ -49,4 +49,4 @@ fi # [ -f requirements.txt ]
 
 chown -R --reference=. ./dist/linux/amd64
 
-ls ./dist/linux/amd64 | echo "::set-output name=location::$(< /dev/stdin)"
+ls ./dist/linux/amd64 | echo "::set-output name=location::$(pwd)/$(< /dev/stdin)"
