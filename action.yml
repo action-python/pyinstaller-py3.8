@@ -23,6 +23,8 @@ inputs:
 outputs:
   location:
     description: 'Binary file location.'
+  filename:
+    description: 'Binary file name.'
 
 runs:
   using: "docker"
