@@ -50,3 +50,4 @@ fi # [ -f requirements.txt ]
 chown -R --reference=. ./dist/linux/amd64
 
 ls ./dist/linux/amd64 | echo "::set-output name=location::$WORKDIR/dist/linux/amd64/$(< /dev/stdin)"
+ls ./dist/linux/amd64 | echo "::set-output name=filename::(< /dev/stdin)"
