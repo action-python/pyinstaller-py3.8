@@ -43,8 +43,8 @@ fi
 
 cd $WORKDIR
 
-if [ -f requirements.txt ]; then
-    /root/.pyenv/shims/pip install -r requirements.txt
+if [ -f $5 ]; then
+    /root/.pyenv/shims/pip install -r $5
 fi # [ -f requirements.txt ]
 
 /root/.pyenv/shims/pyinstaller --clean -y --dist ./dist/linux/$TYPE --workpath /tmp $SPEC_FILE
