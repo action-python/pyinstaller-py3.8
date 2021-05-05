@@ -90,4 +90,4 @@ This uses the `GITHUB_TOKEN` provided by the [virtual environment](https://help.
 This is customized and advanced version of  [# Chris R](https://github.com/cdrx/docker-pyinstaller) docker files and [# Jack McKew](https://github.com/JackMcKew/pyinstaller-action-windows) github action with multi architecture support with different versions of python3. 
 
 ## Contributing
-We would love you to contribute to [@action-python/pyinstaller-py3.8](https://github.com/action-python/pyinstaller-py3.8) and [@action-python/pyinstaller-py3.7](https://github.com/action-python/pyinstaller-py3.7), make sure to be clear and detailed description in pull requests, you are welcome!
+We would love you to contribute to [`@action-python/pyinstaller-py3.8`](https://github.com/action-python/pyinstaller-py3.8) and [`@action-python/pyinstaller-py3.7`](https://github.com/action-python/pyinstaller-py3.7), make sure to be clear and detailed description in pull requests, you are welcome!
