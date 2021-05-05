@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/bash -i
 
 # Fail on errors.
-set -e
+# set -im
 
 # Make sure .bashrc is sourced
 . /root/.bashrc
@@ -15,15 +15,15 @@ PYPI_URL=$2
 
 PYPI_INDEX_URL=$3
 
-WORKDIR=${SRCDIR:-/src}
+WORKDIR=${SRCDIR:-.}
 
 SPEC_FILE=${4:-*.spec}
 
-TYPE=win64
-FILE_DIR=dist/windows/$TYPE
+TYPE=amd64
 
+FILE_DIR=dist/linux/$TYPE
 
-python -m pip install --upgrade pip wheel setuptools
+/root/.pyenv/shims/python -m pip install --upgrade pip wheel setuptools
 
 #
 # In case the user specified a custom URL for PYPI, then use
@@ -31,28 +31,25 @@ python -m pip install --upgrade pip wheel setuptools
 #
 if [[ "$PYPI_URL" != "https://pypi.python.org/" ]] || \
    [[ "$PYPI_INDEX_URL" != "https://pypi.python.org/simple" ]]; then
-    # the funky looking regexp just extracts the hostname, excluding port
-    # to be used as a trusted-host.
-    mkdir -p /wine/drive_c/users/root/pip
-    echo "[global]" > /wine/drive_c/users/root/pip/pip.ini
-    echo "index = $PYPI_URL" >> /wine/drive_c/users/root/pip/pip.ini
-    echo "index-url = $PYPI_INDEX_URL" >> /wine/drive_c/users/root/pip/pip.ini
-    echo "trusted-host = $(echo $PYPI_URL | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> /wine/drive_c/users/root/pip/pip.ini
+    mkdir -p /root/.pip
+    echo "[global]" > /root/.pip/pip.conf
+    echo "index = $PYPI_URL" >> /root/.pip/pip.conf
+    echo "index-url = $PYPI_INDEX_URL" >> /root/.pip/pip.conf
+    echo "trusted-host = $(echo $PYPI_URL | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> /root/.pip/pip.conf
 
-    echo "Using custom pip.ini: "
-    cat /wine/drive_c/users/root/pip/pip.ini
+    echo "Using custom pip.conf: "
+    cat /root/.pip/pip.conf
 fi
 
 cd $WORKDIR
 
 if [ -f $5 ]; then
-    pip install -r $5
+    /root/.pyenv/shims/pip install -r $5
 fi # [ -f $5 ]
 
+/root/.pyenv/shims/pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
 
-pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
 chown -R --reference=. $FILE_DIR
-
 
 FILES_COUNT=`ls $FILE_DIR | wc -l`
 
