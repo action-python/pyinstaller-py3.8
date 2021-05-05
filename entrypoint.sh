@@ -1,7 +1,7 @@
-#!/bin/bash -i
+#!/bin/bash
 
 # Fail on errors.
-# set -im
+set -e
 
 # Make sure .bashrc is sourced
 . /root/.bashrc
@@ -15,15 +15,15 @@ PYPI_URL=$2
 
 PYPI_INDEX_URL=$3
 
-WORKDIR=${SRCDIR:-.}
+WORKDIR=${SRCDIR:-/src}
 
 SPEC_FILE=${4:-*.spec}
 
-TYPE=amd64
+TYPE=win64
+FILE_DIR=dist/windows/$TYPE
 
-FILE_DIR=dist/linux/$TYPE
 
-/root/.pyenv/shims/python -m pip install --upgrade pip wheel setuptools
+python -m pip install --upgrade pip wheel setuptools
 
 #
 # In case the user specified a custom URL for PYPI, then use
@@ -31,29 +31,27 @@ FILE_DIR=dist/linux/$TYPE
 #
 if [[ "$PYPI_URL" != "https://pypi.python.org/" ]] || \
    [[ "$PYPI_INDEX_URL" != "https://pypi.python.org/simple" ]]; then
-    mkdir -p /root/.pip
-    echo "[global]" > /root/.pip/pip.conf
-    echo "index = $PYPI_URL" >> /root/.pip/pip.conf
-    echo "index-url = $PYPI_INDEX_URL" >> /root/.pip/pip.conf
-    echo "trusted-host = $(echo $PYPI_URL | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> /root/.pip/pip.conf
+    # the funky looking regexp just extracts the hostname, excluding port
+    # to be used as a trusted-host.
+    mkdir -p /wine/drive_c/users/root/pip
+    echo "[global]" > /wine/drive_c/users/root/pip/pip.ini
+    echo "index = $PYPI_URL" >> /wine/drive_c/users/root/pip/pip.ini
+    echo "index-url = $PYPI_INDEX_URL" >> /wine/drive_c/users/root/pip/pip.ini
+    echo "trusted-host = $(echo $PYPI_URL | perl -pe 's|^.*?://(.*?)(:.*?)?/.*$|$1|')" >> /wine/drive_c/users/root/pip/pip.ini
 
-    echo "Using custom pip.conf: "
-    cat /root/.pip/pip.conf
+    echo "Using custom pip.ini: "
+    cat /wine/drive_c/users/root/pip/pip.ini
 fi
 
 cd $WORKDIR
 
 if [ -f $5 ]; then
-    /root/.pyenv/shims/pip install -r $5
+    pip install -r $5
 fi # [ -f $5 ]
 
-/root/.pyenv/shims/pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
 
+pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
 chown -R --reference=. $FILE_DIR
-apt-get update
-apt-get install -y file
-
-
 
 
 FILES_COUNT=`ls $FILE_DIR | wc -l`
