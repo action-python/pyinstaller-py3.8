@@ -74,7 +74,7 @@ if [ $FILES_COUNT = 1 ]
 then
     echo "::set-output name=location::$WORKDIR/$FILE_DIR/$RENAME"
     echo "::set-output name=filename::$RENAME"
-    echo "::set-output name=content_type::$(ls $FILE_DIR | file --mime-type $FILE_DIR/$(< /dev/stdin) | awk '//{ print $2 }')"
+    echo "::set-output name=content_type::$(file --mime-type $FILE_DIR/$RENAME | awk '//{ print $2 }')"
 else
     echo "::set-output name=location::$WORKDIR/$FILE_DIR"
     echo "::set-output name=filename::NULL"
