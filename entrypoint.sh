@@ -50,7 +50,7 @@ fi # [ -f $5 ]
 /root/.pyenv/shims/pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
 
 chown -R --reference=. $FILE_DIR
-
+apt-get update
 apt-get install -y file
 
 
