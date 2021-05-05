@@ -70,8 +70,6 @@ then
     mv $FILE_DIR/$DEF_FILE_NAME $FILE_DIR/$RENAME
 fi
 
-file --mime-type $FILE_DIR/$RENAME
-
 if [ $FILES_COUNT = 1 ]
 then
     echo "::set-output name=location::$WORKDIR/$FILE_DIR/$RENAME"
