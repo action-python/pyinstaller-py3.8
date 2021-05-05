@@ -1,3 +1,4 @@
+
 # GitHub Action | Python3.8 Pyinstaller
 
 **Please note:** This repository is currently in **beta** phase.
@@ -6,7 +7,7 @@
 ## Pre-requisites
 Create a workflow `.yml` file in your `.github/workflows` directory. An [example workflow](#example-workflow---create-a-release) is available below. For more information, reference the GitHub Help Documentation for [Creating a workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
 
-**Please note:** Make sure you have ``.spec`` file for more info [read here](https://pyinstaller.readthedocs.io/en/stable/man/pyi-makespec.html), and if you have ``.gitignore`` remove ``*.spec``.
+**Please note:** Make sure you have ``.spec`` file for more info [read here](https://pyinstaller.readthedocs.io/en/stable/man/pyi-makespec.html), and if you have ``.gitignore`` please exclude ``*.spec``. All docker images have python3.x with preinstalled `tk-dev` make sure to ``excludes=["tkinter"]`` in ``.spec`` file if you are not using tk in project.
 
 ## Inputs
 
@@ -86,7 +87,7 @@ This uses the `GITHUB_TOKEN` provided by the [virtual environment](https://help.
 
 ## Sources 
 
-This is customized version of  [# Chris R](https://github.com/cdrx/docker-pyinstaller) docker files and [# Jack McKew](https://github.com/JackMcKew/pyinstaller-action-windows) github action with multi architecture support with different versions of python3. 
+This is customized and advanced version of  [# Chris R](https://github.com/cdrx/docker-pyinstaller) docker files and [# Jack McKew](https://github.com/JackMcKew/pyinstaller-action-windows) github action with multi architecture support with different versions of python3. 
 
 ## Contributing
-We would love you to contribute to this project, make sure to be clear and detailed description in pull requests, you are welcome!
+We would love you to contribute to [@action-python/pyinstaller-py3.8](https://github.com/action-python/pyinstaller-py3.8) and [@action-python/pyinstaller-py3.7](https://github.com/action-python/pyinstaller-py3.7), make sure to be clear and detailed description in pull requests, you are welcome!
