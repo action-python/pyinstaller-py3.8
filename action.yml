@@ -28,13 +28,17 @@ inputs:
     description: 'Rename the binary file, this will only work when you have --onefile binary.'
     required: False
     default: ""
+  autorun:
+    description: 'run bash file before anything'
+    required: False
+    default: "autorun.sh"
 outputs:
   location:
-    description: 'Binary file location or Directory location.'
+    description: 'Binary file location.'
   filename:
-    description: 'Binary file name or NULL.'
+    description: 'Binary file name.'
   content_type:
-    description: 'File content type or NULL.'
+    description: 'File content type.'
 
 runs:
   using: "docker"
@@ -46,3 +50,4 @@ runs:
     - ${{ inputs.spec }}
     - ${{ inputs.requirements }}
     - ${{ inputs.rename }}
+    - ${{ input.autorun }}
