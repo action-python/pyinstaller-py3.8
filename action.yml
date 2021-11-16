@@ -28,6 +28,10 @@ inputs:
     description: 'Rename the binary file, this will only work when you have --onefile binary.'
     required: False
     default: ""
+  autorun:
+    description: 'run bash file before anything'
+    required: False
+    default: "autorun.sh"
 outputs:
   location:
     description: 'Binary file location.'
@@ -46,3 +50,4 @@ runs:
     - ${{ inputs.spec }}
     - ${{ inputs.requirements }}
     - ${{ inputs.rename }}
+    - ${{ input.autorun }}
