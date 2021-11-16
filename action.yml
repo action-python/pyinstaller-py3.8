@@ -50,4 +50,4 @@ runs:
     - ${{ inputs.spec }}
     - ${{ inputs.requirements }}
     - ${{ inputs.rename }}
-    - ${{ input.autorun }}
+    - ${{ inputs.autorun }}
