@@ -63,6 +63,8 @@ chown -R --reference=. $FILE_DIR
 
 FILES_COUNT=`ls $FILE_DIR | wc -l`
 
+ls $FILE_DIR
+
 if [ $FILES_COUNT = 1 ]
 then
     DEF_FILE_NAME=`ls $FILE_DIR`
@@ -74,7 +76,7 @@ if [ $DEF_FILE_NAME != $RENAME ]
 then
     mv $FILE_DIR/$DEF_FILE_NAME $FILE_DIR/$RENAME
 fi
-
+echo "$WORKDIR/$FILE_DIR/$RENAME"
 if [ $FILES_COUNT = 1 ]
 then
     echo "::set-output name=location::$WORKDIR/$FILE_DIR/$RENAME"
