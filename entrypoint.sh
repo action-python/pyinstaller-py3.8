@@ -1,7 +1,9 @@
 #!/bin/bash -i
 
+export PATH="/root/.pyenv/shims/:$PATH"
+
 # Fail on errors.
-set -im
+# set -im
 
 # Make sure .bashrc is sourced
 . /root/.bashrc
