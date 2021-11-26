@@ -1,5 +1,7 @@
 #!/bin/bash -i
 
+export PATH="/root/.pyenv/shims/:$PATH"
+
 # Fail on errors.
 # set -im
 
@@ -29,7 +31,7 @@ TYPE=i386
 FILE_DIR=dist/linux/$TYPE
 
 
-/root/.pyenv/shims/python -m pip install --upgrade pip wheel setuptools
+python -m pip install --upgrade pip wheel setuptools
 
 #
 # In case the user specified a custom URL for PYPI, then use
@@ -52,10 +54,10 @@ fi
 cd $WORKDIR
 
 if [ -f $5 ]; then
-    /root/.pyenv/shims/pip install -r $5
+    pip install -r $5
 fi # [ -f requirements.txt ]
 
-/root/.pyenv/shims/pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
+pyinstaller --clean -y --dist $FILE_DIR --workpath /tmp $SPEC_FILE
 
 chown -R --reference=. $FILE_DIR
 
